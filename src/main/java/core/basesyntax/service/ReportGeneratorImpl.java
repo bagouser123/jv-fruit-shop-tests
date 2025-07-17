@@ -4,7 +4,7 @@ import core.basesyntax.db.Storage;
 import java.util.Map;
 
 public class ReportGeneratorImpl implements ReportGenerator {
-    public static final String VALUES = "fruit, quanity";
+    public static final String VALUES = "fruit, quantity";
     public static final String COMMA = ",";
 
     @Override

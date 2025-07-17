@@ -18,7 +18,7 @@ public class ReportGeneratorTest {
     @Test
     void getReport() {
         Storage.storage.put("banana", 100);
-        String expected = "fruit, quanity\r\n"
+        String expected = "fruit, quantity\r\n"
                 + "banana,100\r\n";
         String actual = reportGenerator.getReport();
         assertEquals(expected, actual);
@@ -30,7 +30,7 @@ public class ReportGeneratorTest {
         String fruit = fruitTransaction.setFruit("apple");
         Integer amount = fruitTransaction.setAmount(0);
         fruitShopDao.add(fruit, amount);
-        String expected = "fruit, quanity\r\n"
+        String expected = "fruit, quantity\r\n"
                 + "apple,0\r\n";
         String actual = reportGenerator.getReport();
         assertEquals(expected, actual);
