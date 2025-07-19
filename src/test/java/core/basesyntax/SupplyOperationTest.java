@@ -3,76 +3,65 @@ package core.basesyntax;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.db.Storage;
-import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.ServiceShopForTestsException;
-import core.basesyntax.service.operation.OperationHandler;
-import core.basesyntax.service.operation.ServiceShopForTests;
-import core.basesyntax.service.operation.ServiceShopForTestsImpl;
-import core.basesyntax.service.operation.SupplyOperation;
+import core.basesyntax.service.operation.SupplyOperationForTests;
+import core.basesyntax.service.operation.SupplyOperationForTestsImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class SupplyOperationTest {
-    private ServiceShopForTests serviceShopForTests = new ServiceShopForTestsImpl();
+
+    private SupplyOperationForTests supplyOperationForTests = new SupplyOperationForTestsImpl();
 
     @Test
     void supply_EmptyFruit_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit(""),
-                fruitTransaction.setAmount(40));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "";
+        int amount = 40;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                supplyOperationForTests.test(fruit, amount));
     }
 
     @Test
     void supply_ZeroBalance_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("apple"),
-                fruitTransaction.setAmount(0));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "banana";
+        int amount = 0;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                supplyOperationForTests.test(fruit, amount));
+    }
+
+    @Test
+    void supply_ReturnFilledToAllParameters_Ok() {
+        String fruit = "orange";
+        int amount = 40;
+        try {
+            supplyOperationForTests.test(fruit, amount);
+        } catch (ServiceShopForTestsException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void supply_NullFruit_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit(null),
-                fruitTransaction.setAmount(100));
-        fruitTransaction.setOperation(FruitTransaction.Operation.SUPPLY);
+        String fruit = null;
+        int amount = 200;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                supplyOperationForTests.test(fruit, amount));
     }
 
     @Test
     void supply_MinusAmount_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("banana"),
-                fruitTransaction.setAmount(-100));
-        fruitTransaction.setOperation(FruitTransaction.Operation.SUPPLY);
+        String fruit = "pineapple";
+        int amount = -100;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                supplyOperationForTests.test(fruit, amount));
     }
 
     @Test
-    void supply_FruitWithSpeciallySymbols_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("$$#@$banana"),
-                fruitTransaction.setAmount(5));
-        fruitTransaction.setOperation(FruitTransaction.Operation.SUPPLY);
+    void supply_FruitNameStartedWithSpeciallySymbols_NotOk() {
+        String fruit = "$%%#^#^@#^";
+        int amount = 120;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                supplyOperationForTests.test(fruit, amount));
     }
 
     @AfterEach

@@ -92,6 +92,19 @@ public class DataConverterTest {
         }
     }
 
+    @Test
+    void dataConverter_FruitNameStartedNotWithLetter_NotOk() {
+        Reader fruitReader = new FruitReaderImpl();
+        List<String> inputReport = fruitReader.read(FILE_FROM);
+        DataConverter dataConverter = new DataConverterImpl();
+        final List<FruitTransaction> transactions = dataConverter.convertToTransaction(inputReport);
+        for (int i = 5; i < 6; i++) {
+            FruitTransaction fruitTransaction = transactions.get(i);
+            assertThrows(ServiceShopForTestsException.class, () ->
+                    serviceShopForTests.shopTest(fruitTransaction));
+        }
+    }
+
     @AfterEach
     public void afterEachTest() {
         Storage.storage.clear();

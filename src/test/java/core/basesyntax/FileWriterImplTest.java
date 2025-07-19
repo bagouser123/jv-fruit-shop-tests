@@ -5,7 +5,7 @@ import core.basesyntax.service.Writer;
 import org.junit.jupiter.api.Test;
 
 public class FileWriterImplTest {
-    private static final String FILE_TO = "src/main/resources/ValueToFileDataBase.csv";
+    private static final String FILE_TO = "src/main/resources/TestDataBase.csv";
     private Writer writer = new FileWriterImpl();
 
     @Test

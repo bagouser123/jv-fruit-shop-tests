@@ -3,77 +3,64 @@ package core.basesyntax;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.db.Storage;
-import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.ServiceShopForTestsException;
-import core.basesyntax.service.operation.OperationHandler;
-import core.basesyntax.service.operation.ReturnOperation;
-import core.basesyntax.service.operation.ServiceShopForTests;
-import core.basesyntax.service.operation.ServiceShopForTestsImpl;
-import core.basesyntax.service.operation.SupplyOperation;
+import core.basesyntax.service.operation.ReturnOperationForTests;
+import core.basesyntax.service.operation.ReturnOperationForTestsImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class ReturnOperationTest {
-    private ServiceShopForTests serviceShopForTests = new ServiceShopForTestsImpl();
+    private ReturnOperationForTests returnOperationForTests = new ReturnOperationForTestsImpl();
 
     @Test
     void return_EmptyFruit_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new ReturnOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit(""),
-                fruitTransaction.setAmount(40));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "";
+        int amount = 40;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                returnOperationForTests.test(fruit, amount));
     }
 
     @Test
     void return_ZeroBalance_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new ReturnOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("apple"),
-                fruitTransaction.setAmount(0));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "banana";
+        int amount = 0;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                returnOperationForTests.test(fruit, amount));
+    }
+
+    @Test
+    void return_ReturnFilledToAllParameters_Ok() {
+        String fruit = "orange";
+        int amount = 40;
+        try {
+            returnOperationForTests.test(fruit, amount);
+        } catch (ServiceShopForTestsException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void return_NullFruit_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new ReturnOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit(null),
-                fruitTransaction.setAmount(100));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = null;
+        int amount = 200;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                returnOperationForTests.test(fruit, amount));
     }
 
     @Test
     void return_MinusAmount_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new ReturnOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("banana"),
-                fruitTransaction.setAmount(-100));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "pineapple";
+        int amount = -100;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                returnOperationForTests.test(fruit, amount));
     }
 
     @Test
     void return_FruitNameStartedWithSpeciallySymbols_NotOk() {
-        FruitTransaction fruitTransaction = new FruitTransaction();
-        OperationHandler operationHandler = new SupplyOperation();
-        operationHandler.updateNumberOffFruit(
-                fruitTransaction.setFruit("$%%#^#^@#^"),
-                fruitTransaction.setAmount(5));
-        fruitTransaction.setOperation(FruitTransaction.Operation.RETURN);
+        String fruit = "$%%#^#^@#^";
+        int amount = 120;
         assertThrows(ServiceShopForTestsException.class, () ->
-                serviceShopForTests.shopTest(fruitTransaction));
+                returnOperationForTests.test(fruit, amount));
     }
 
     @AfterEach
