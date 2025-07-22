@@ -40,7 +40,7 @@ public class BalanceOperationTest {
 
     @Test
     public void balance_FruitNameStartedWithSpeciallySymbols_NotOk() {
-        String fruit = "$%%#^#^@#^";
+        String fruit = "$%%#^#^@#@^";
         int amount = 5;
         assertThrows(RuntimeException.class, () ->
                 operationHandler.updateNumberOffFruit(fruit, amount));
