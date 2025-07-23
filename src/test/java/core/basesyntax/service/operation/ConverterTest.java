@@ -3,8 +3,6 @@ package core.basesyntax.service.operation;
 import core.basesyntax.service.FruitReaderImpl;
 import core.basesyntax.service.Reader;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
 import java.util.List;
 
 public class ConverterTest {

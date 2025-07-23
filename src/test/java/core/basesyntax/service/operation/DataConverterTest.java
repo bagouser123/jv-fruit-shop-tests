@@ -3,10 +3,8 @@ package core.basesyntax.service.operation;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.db.Storage;
-import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.FruitReaderImpl;
 import core.basesyntax.service.Reader;
-
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
