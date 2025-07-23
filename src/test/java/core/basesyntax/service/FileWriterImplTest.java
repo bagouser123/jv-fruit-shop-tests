@@ -1,5 +1,7 @@
 package core.basesyntax.service;
 
+import core.basesyntax.service.FileWriterImpl;
+import core.basesyntax.service.Writer;
 import org.junit.jupiter.api.Test;
 
 public class FileWriterImplTest {
