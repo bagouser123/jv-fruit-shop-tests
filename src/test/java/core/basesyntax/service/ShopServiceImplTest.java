@@ -1,5 +1,7 @@
 package core.basesyntax.service;
 
+import static org.junit.Assert.assertThrows;
+
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.operation.BalanceOperation;
 import core.basesyntax.service.operation.OperationHandler;
@@ -13,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertThrows;
 
 public class ShopServiceImplTest {
 
@@ -36,6 +36,7 @@ public class ShopServiceImplTest {
         assertThrows(RuntimeException.class, () ->
                 shopService.process(transactions));
     }
+
     @Test
     void shopServiceTest_FruitIsNull_NotOk() {
         List<FruitTransaction> transactions = new ArrayList<>();
@@ -54,6 +55,7 @@ public class ShopServiceImplTest {
         assertThrows(RuntimeException.class, () ->
                 shopService.process(transactions));
     }
+
     @Test
     void shopServiceTest_FruitIsEmpty_NotOk() {
         List<FruitTransaction> transactions = new ArrayList<>();
@@ -72,6 +74,7 @@ public class ShopServiceImplTest {
         assertThrows(RuntimeException.class, () ->
                 shopService.process(transactions));
     }
+
     @Test
     void shopServiceTest_FruitWithSpeciallySymbols_NotOk() {
         List<FruitTransaction> transactions = new ArrayList<>();
@@ -90,6 +93,7 @@ public class ShopServiceImplTest {
         assertThrows(RuntimeException.class, () ->
                 shopService.process(transactions));
     }
+
     @Test
     void shopServiceTest_CheckForNotException_Ok() {
         List<FruitTransaction> transactions = new ArrayList<>();
@@ -105,6 +109,6 @@ public class ShopServiceImplTest {
         operationHandlerMap.put(FruitTransaction.Operation.SUPPLY, new SupplyOperation());
         OperationStrategy operationStrategy = new OperationStrategyImpl(operationHandlerMap);
         ShopService shopService = new ShopServiceImpl(operationStrategy);
-                shopService.process(transactions);
+        shopService.process(transactions);
     }
 }

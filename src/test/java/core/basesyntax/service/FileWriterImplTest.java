@@ -1,16 +1,16 @@
 package core.basesyntax.service;
 
+import static org.junit.Assert.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertThrows;
 
 public class FileWriterImplTest {
     private static final String FILE_TO = "src/main/resources/TestDataBase.csv";
     private Writer writer;
 
     @BeforeEach
-    void BeforeEach() {
+    void beforeEachMethod() {
         writer = new FileWriterImpl();
     }
 

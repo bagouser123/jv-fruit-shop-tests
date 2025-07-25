@@ -1,6 +1,5 @@
 package core.basesyntax.service.operation;
 
-import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class DataConverterImpl implements DataConverter {
             FruitTransaction.Operation operation = FruitTransaction.Operation
                     .mapToOperation(operationValue);
             FruitTransaction transaction = new FruitTransaction(operation, fruit, amount);
+            transactions.add(transaction);
             if (fruit.isEmpty()) {
                 throw new RuntimeException("Fruit paramateres are empty!");
             }
@@ -32,7 +32,6 @@ public class DataConverterImpl implements DataConverter {
             if (!Character.isLetter(fruit.charAt(0))) {
                 throw new RuntimeException("Fruit name should start from letters!");
             }
-            transactions.add(transaction);
         }
         return transactions;
     }
