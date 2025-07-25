@@ -15,6 +15,18 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public void process(List<FruitTransaction> fruitTransactions) {
         for (FruitTransaction fruitTransaction : fruitTransactions) {
+            if (fruitTransaction.getFruit() == null) {
+                throw new RuntimeException("Null fruit exception!");
+            }
+            if (fruitTransaction.getFruit().isEmpty()) {
+                throw new RuntimeException("Fruit paramateres are empty!");
+            }
+            if (fruitTransaction.getAmount() <= 0) {
+                throw new RuntimeException("Amount can't be less than 1!");
+            }
+            if (!Character.isLetter(fruitTransaction.getFruit().charAt(0))) {
+                throw new RuntimeException("Fruit name should start from letters!");
+            }
             OperationHandler operationHandler = operationStrategy.get(
                     fruitTransaction.getOperation());
             operationHandler.updateNumberOffFruit(fruitTransaction.getFruit(),

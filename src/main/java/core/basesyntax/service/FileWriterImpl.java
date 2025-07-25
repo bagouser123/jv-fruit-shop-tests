@@ -8,6 +8,9 @@ public class FileWriterImpl implements Writer {
 
     @Override
     public void write(String report, String fileName) {
+        if (report == null) {
+            throw new RuntimeException("Report is null!");
+        }
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             bufferedWriter.write(report);
         } catch (IOException e) {

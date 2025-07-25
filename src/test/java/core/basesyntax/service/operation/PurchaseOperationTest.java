@@ -34,7 +34,7 @@ public class PurchaseOperationTest {
     }
 
     @Test
-    void purchase_PurchaseGood_Ok() {
+    void purchase_CheckForNoExceptions_Ok() {
         String fruit = "apple";
         int amount = 20;
         Storage.storage.put(fruit, amount);

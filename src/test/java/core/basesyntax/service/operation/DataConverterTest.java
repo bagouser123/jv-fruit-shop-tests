@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class DataConverterTest {
     public static final String FILE_FROM = "src/main/resources/FORTESTS.csv";
-    private DataConverterForTests dataConverter = new DataConverterForTestsImpl();
+    private DataConverter dataConverter = new DataConverterImpl();
 
     @Test
     void dataConverter_EmptyFruit_NotOk() {
@@ -58,7 +58,7 @@ public class DataConverterTest {
     }
 
     @Test
-    void dataConverter_PurchaseTooMuchBananas_NotOk() {
+    void dataConverter_NotExistOperation_NotOk() {
         Reader fruitReader = new FruitReaderImpl();
         List<String> inputReport = fruitReader.read(FILE_FROM);
         for (int i = 5; i < 6; i++) {

@@ -27,7 +27,7 @@ public class SupplyOperationTest {
     }
 
     @Test
-    void supply_ReturnFilledToAllParameters_Ok() {
+    void supply_CheckForNoExceptions_Ok() {
         String fruit = "orange";
         int amount = 40;
         operationHandler.updateNumberOffFruit(fruit, amount);

@@ -17,9 +17,6 @@ public class BalanceOperation implements OperationHandler {
         if (!Character.isLetter(fruit.charAt(0))) {
             throw new RuntimeException("Fruit name should start from letters!");
         }
-        if (fruit.length() < 4) {
-            throw new RuntimeException("Fruit name should be atleast 4 letters!");
-        }
         Storage.storage.put(fruit, amount);
     }
 }

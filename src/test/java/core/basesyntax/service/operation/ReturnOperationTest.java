@@ -26,7 +26,7 @@ public class ReturnOperationTest {
     }
 
     @Test
-    void return_ReturnFilledToAllParameters_Ok() {
+    void return_CheckForNoExceptions_Ok() {
         String fruit = "orange";
         int amount = 40;
         operationHandler.updateNumberOffFruit(fruit, amount);

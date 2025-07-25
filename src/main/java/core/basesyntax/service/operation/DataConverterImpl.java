@@ -1,5 +1,6 @@
 package core.basesyntax.service.operation;
 
+import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class DataConverterImpl implements DataConverter {
     public List<FruitTransaction> convertToTransaction(List<String> lines) {
         List<FruitTransaction> transactions = new ArrayList<>();
 
-        for (int i = 1; i < lines.size(); i++) {
+        for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             String[] split = line.split(COMMA);
 
@@ -22,6 +23,15 @@ public class DataConverterImpl implements DataConverter {
             FruitTransaction.Operation operation = FruitTransaction.Operation
                     .mapToOperation(operationValue);
             FruitTransaction transaction = new FruitTransaction(operation, fruit, amount);
+            if (fruit.isEmpty()) {
+                throw new RuntimeException("Fruit paramateres are empty!");
+            }
+            if (amount <= 0) {
+                throw new RuntimeException("Amount can't be less than 1!");
+            }
+            if (!Character.isLetter(fruit.charAt(0))) {
+                throw new RuntimeException("Fruit name should start from letters!");
+            }
             transactions.add(transaction);
         }
         return transactions;

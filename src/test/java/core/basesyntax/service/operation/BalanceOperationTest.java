@@ -32,7 +32,7 @@ public class BalanceOperationTest {
     }
 
     @Test
-    public void balance_BalanceFilledToAllParameters_Ok() {
+    public void balance_BalanceCheckForNoExceptions_Ok() {
         String fruit = "apple";
         int amount = 40;
         operationHandler.updateNumberOffFruit(fruit, amount);
