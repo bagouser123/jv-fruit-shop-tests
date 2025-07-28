@@ -1,5 +1,6 @@
 package core.basesyntax.service.operation;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.db.Storage;
@@ -37,8 +38,10 @@ public class PurchaseOperationTest {
     void purchase_CheckForNoExceptions_Ok() {
         String fruit = "apple";
         int amount = 20;
+        String expected = "0";
         Storage.storage.put(fruit, amount);
         operationHandler.updateNumberOffFruit(fruit, amount);
+        assertEquals(expected, String.valueOf(Storage.storage.get(fruit)));
     }
 
     @Test

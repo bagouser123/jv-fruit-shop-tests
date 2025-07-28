@@ -1,5 +1,6 @@
 package core.basesyntax.service.operation;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import core.basesyntax.db.Storage;
@@ -35,7 +36,9 @@ public class BalanceOperationTest {
     public void balance_BalanceCheckForNoExceptions_Ok() {
         String fruit = "apple";
         int amount = 40;
+        String expected = "40";
         operationHandler.updateNumberOffFruit(fruit, amount);
+        assertEquals(expected, String.valueOf(Storage.storage.get(fruit)));
     }
 
     @Test
