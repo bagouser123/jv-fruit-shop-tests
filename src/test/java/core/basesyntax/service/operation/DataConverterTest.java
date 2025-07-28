@@ -12,43 +12,43 @@ public class DataConverterTest {
 
     @Test
     void dataConverter_EmptyFruit_NotOk() {
-            List<String> forData = Collections.singletonList("s,,20");
-            assertThrows(RuntimeException.class, () ->
+        List<String> forData = Collections.singletonList("s,,20");
+        assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
-        }
+    }
 
     @Test
     void dataConverter_ZeroBalance_NotOk() {
-            List<String> forData = Collections.singletonList("b,apple,0");
-            assertThrows(RuntimeException.class, () ->
+        List<String> forData = Collections.singletonList("b,apple,0");
+        assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
-        }
+    }
 
     @Test
     void dataConverter_BalanceBanana_Ok() {
-            List<String> forData = Collections.singletonList("b,banana,100");
-            Storage.storage.put("banana", 100);
-            dataConverter.convertToTransaction(forData);
-        }
+        List<String> forData = Collections.singletonList("b,banana,100");
+        Storage.storage.put("banana", 100);
+        dataConverter.convertToTransaction(forData);
+    }
 
     @Test
     void dataConverter_ReturnBanana_Ok() {
-            List<String> forData = Collections.singletonList("r,banana,50");
-            Storage.storage.put("banana", 100);
-            dataConverter.convertToTransaction(forData);
-        }
+        List<String> forData = Collections.singletonList("r,banana,50");
+        Storage.storage.put("banana", 100);
+        dataConverter.convertToTransaction(forData);
+    }
 
     @Test
     void dataConverter_NotExistOperation_NotOk() {
-            List<String> forData = Collections.singletonList("g,apple,10");
-            assertThrows(RuntimeException.class, () ->
-                    dataConverter.convertToTransaction(forData));
-        }
+        List<String> forData = Collections.singletonList("g,apple,10");
+        assertThrows(RuntimeException.class, () ->
+                dataConverter.convertToTransaction(forData));
+    }
 
     @Test
     void dataConverter_FruitNameStartedNotWithLetter_NotOk() {
-            List<String> forData = Collections.singletonList("r,%$*%)#%,100");
-            assertThrows(RuntimeException.class, () ->
-                    dataConverter.convertToTransaction(forData));
-        }
+        List<String> forData = Collections.singletonList("r,%$*%)#%,100");
+        assertThrows(RuntimeException.class, () ->
+                dataConverter.convertToTransaction(forData));
+    }
 }
