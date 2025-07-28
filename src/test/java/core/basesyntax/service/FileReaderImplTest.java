@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class FileReaderImplTest {
-    private static final String FILE_TO = "src/main/resources/TestDataBase.csv";
+    private static final String FILE_TO = "src/test/resources/TestDataBase.csv";
     private Reader reader = new FruitReaderImpl();
 
     @Test

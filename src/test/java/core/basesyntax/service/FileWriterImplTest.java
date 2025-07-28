@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FileWriterImplTest {
-    private static final String FILE_TO = "src/main/resources/TestDataBase.csv";
+    private static final String FILE_TO = "src/test/resources/TestDataBase.csv";
     private Writer writer;
 
     @BeforeEach

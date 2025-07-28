@@ -3,79 +3,52 @@ package core.basesyntax.service.operation;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.db.Storage;
-import core.basesyntax.service.FruitReaderImpl;
-import core.basesyntax.service.Reader;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DataConverterTest {
-    public static final String FILE_FROM = "src/main/resources/FORTESTS.csv";
     private DataConverter dataConverter = new DataConverterImpl();
 
     @Test
     void dataConverter_EmptyFruit_NotOk() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 1; i < 2; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("s,,20");
             assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
         }
-    }
 
     @Test
     void dataConverter_ZeroBalance_NotOk() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 2; i < 3; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("b,apple,0");
             assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
         }
-    }
 
     @Test
     void dataConverter_BalanceBanana_Ok() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 3; i < 4; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("b,banana,100");
             Storage.storage.put("banana", 100);
             dataConverter.convertToTransaction(forData);
         }
-    }
 
     @Test
     void dataConverter_ReturnBanana_Ok() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 4; i < 5; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("r,banana,50");
             Storage.storage.put("banana", 100);
             dataConverter.convertToTransaction(forData);
         }
-    }
 
     @Test
     void dataConverter_NotExistOperation_NotOk() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 5; i < 6; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("g,apple,10");
             assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
         }
-    }
 
     @Test
     void dataConverter_FruitNameStartedNotWithLetter_NotOk() {
-        Reader fruitReader = new FruitReaderImpl();
-        List<String> inputReport = fruitReader.read(FILE_FROM);
-        for (int i = 6; i < 7; i++) {
-            List<String> forData = Collections.singletonList(inputReport.get(i));
+            List<String> forData = Collections.singletonList("r,%$*%)#%,100");
             assertThrows(RuntimeException.class, () ->
                     dataConverter.convertToTransaction(forData));
         }
-    }
 }
